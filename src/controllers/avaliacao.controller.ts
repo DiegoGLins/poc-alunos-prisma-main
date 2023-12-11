@@ -5,7 +5,7 @@ import avaliacaoService from "../services/avaliacao.service";
 export class AvaliacaoController {
     public async list(req: Request, res: Response) {
         try {
-            const { idAluno } = req.body;
+            const { idAluno } = req.params;
 
             const validateAvaliacao = await repository.aluno.findUnique({
                 where: {
