@@ -123,7 +123,7 @@ export class AvaliacaoController {
             const { disciplina, nota } = req.body;
 
             // Valida os campos obrigatórios
-            if (!disciplina || !nota || !idAluno) {
+            if (!disciplina || !nota) {
                 return res.status(400).send({
                     ok: false,
                     message: "Campos não foram informados",

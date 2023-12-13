@@ -8,7 +8,7 @@ export const alunoRoutes = () => {
     const router = Router();
     const controller = new AlunoController();
 
-    router.get("/", authMiddleware, controller.list);
+    router.get("/", controller.list);
     router.post("/", controller.create);
     router.put("/:id", [authMiddleware], controller.update);
     router.delete("/:id", controller.delete);
