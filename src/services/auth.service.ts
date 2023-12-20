@@ -18,14 +18,14 @@ class AuthService {
             };
         }
 
-        const user = {
+        const aluno = {
             id: result.id,
             email: result.email,
             nome: result.nome,
             type: result.type
         }
 
-        const token = jwt.sign(user, `${process.env.JWT_SECRET}`, {
+        const token = jwt.sign(aluno, `${process.env.JWT_SECRET}`, {
             expiresIn: "2h"
         })
 
@@ -33,7 +33,7 @@ class AuthService {
             code: 200,
             message: "Login successfuly done",
             data: {
-                user: user,
+                aluno: aluno,
                 token
             },
         };
