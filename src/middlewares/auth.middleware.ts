@@ -17,7 +17,7 @@ export async function authMiddleware(
         const authHeader = req.headers.authorization?.split(' ')[1]
 
         if (!authHeader) {
-            return res.status(401).send({
+            return res.status(401).json({
                 ok: false,
                 message: "Authentication token not provided",
             });
@@ -32,11 +32,12 @@ export async function authMiddleware(
         }
 
         req.user = {
-            id: decoded.id,
-            email: decoded.email,
-            nome: decoded.nome,
-            type: decoded.type,
+            id: decoded?.id,
+            email: decoded?.email,
+            nome: decoded?.nome,
+            type: decoded?.type,
         }
+
         next();
     } catch (error: any) {
         return res.status(500).send({
