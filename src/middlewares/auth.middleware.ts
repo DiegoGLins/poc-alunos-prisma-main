@@ -25,7 +25,7 @@ export async function authMiddleware(
         const decoded = jwt.verify(authHeader, `${process.env.JWT_SECRET}`) as UserPayload
 
         if (!decoded) {
-            return res.status(401).send({
+            return res.status(401).json({
                 ok: false,
                 message: "Invalid Credentials"
             })
