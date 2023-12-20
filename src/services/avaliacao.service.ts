@@ -81,7 +81,7 @@ class AvaliacaoService {
             if (!listAvaliacoes.length) {
                 return {
                     ok: true,
-                    code: 200,
+                    code: 204,
                     message: "Nenhuma avaliação para ser listada"
                 }
             }
