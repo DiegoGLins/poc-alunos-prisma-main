@@ -38,8 +38,7 @@ export class AlunoController {
             }
 
             const result = await new AlunoService().create(req.body);
-
-            res.status(result.code).send(result);
+            res.status(result.code).send(result?.data);
 
         } catch (error: any) {
             res.status(500).send({
