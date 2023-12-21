@@ -33,7 +33,7 @@ class AuthService {
             code: 200,
             message: "Login successfuly done",
             data: {
-                aluno: aluno,
+                aluno,
                 token
             },
         };
