@@ -1,40 +1,14 @@
 import { Request, Response } from "express";
 import repository from "../database/prisma.connection";
 import avaliacaoService from "../services/avaliacao.service";
+import { AlunoType } from "../types/alunotype";
 
 export class AvaliacaoController {
-    public async list(req: Request, res: Response) {
+    public async listAll(req: Request, res: Response) {
         try {
-            const { idAluno } = req.params;
-
-            const validateAvaliacao = await repository.aluno.findUnique({
-                where: {
-                    id: idAluno
-                },
-                select: {
-                    type: true,
-                }
-            })
-
-            if (!validateAvaliacao) {
-                return res.status(404).send({
-                    ok: false,
-                    message: "Aluno para avaliar não encontrado"
-                })
-            }
-
-            if (req.user.type === "M" || req.user.type === "F") {
-                if (req.user.id !== idAluno) {
-                    return res.status(401).send({
-                        ok: false,
-                        code: 401,
-                        message: "Você não pode listar avaliações de outros alunos"
-                    })
-                }
-            }
-
-            const result = await avaliacaoService.listAvaliacoes(idAluno)
-            return res.status(result.code).send(result)
+            const { type, id } = req.user
+            const result = await avaliacaoService.listAllAvaliacoes(type, id)
+            return res.status(result.code).send(result.data)
 
         } catch (error: any) {
             res.status(500).send({
