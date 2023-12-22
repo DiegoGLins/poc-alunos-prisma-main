@@ -10,7 +10,7 @@ export const avaliacaoRoutes = () => {
     });
     const controller = new AvaliacaoController();
 
-    router.get("/:idAluno", authMiddleware, controller.list);
+    router.get("/", authMiddleware, controller.listAll)
     router.post("/", [authMiddleware, authMiddlewareTypeAluno], controller.create);
     router.put("/:idAvaliacao/:idAluno", [authMiddleware, authMiddlewareForTechHelp], controller.update);
     router.delete("/:idAvaliacao/:idAluno", [authMiddleware, authMiddlewareForTechHelp], controller.delete);

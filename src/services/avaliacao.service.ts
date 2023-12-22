@@ -1,7 +1,8 @@
 import repository from "../database/prisma.connection";
 import { AvaliacaoDTO } from "../dtos/avaliacao.dto";
 import { ResponseDto } from "../dtos/response.dto";
-import { Avaliacao } from "../models";
+import { Aluno, Avaliacao } from "../models";
+import { AlunoType } from "../types/alunotype";
 
 class AvaliacaoService {
     public async createAvaliacao(data: AvaliacaoDTO) {
@@ -46,39 +47,29 @@ class AvaliacaoService {
         }
     }
 
-    public async listAvaliacoes(idAluno: string): Promise<ResponseDto> {
-        // Lista todos os alunos do banco de dados
+    public async listAllAvaliacoes(type: string, idAluno: string) {
         try {
-            const aluno = await repository.aluno.findUnique({
-                where: {
-                    id: idAluno,
-                },
-            })
-            if (!aluno) {
-                return {
-                    ok: false,
-                    code: 404,
-                    message: "Aluno não encontrado"
-                }
+            let where = {}
+            if (type === AlunoType.alunoFormado || type === AlunoType.alunoMatriculado) {
+                where = { idAluno }
             }
-
-            const listAvaliacoes = await repository.avaliacao.findMany({
-                where: {
-                    idAluno
-                }, select: {
+            const avaliacao = await repository.avaliacao.findMany({
+                select: {
                     id: true,
                     disciplina: true,
                     nota: true,
                     aluno: {
                         select: {
+                            id: true,
                             nome: true,
-                            id: true
+                            type: true
                         }
                     }
-                }
+                },
+                where
             })
-
-            if (!listAvaliacoes.length) {
+            console.log(avaliacao)
+            if (!avaliacao.length) {
                 return {
                     ok: true,
                     code: 204,
@@ -89,7 +80,7 @@ class AvaliacaoService {
                 ok: true,
                 code: 200,
                 message: "Avaliações listadas com sucesso",
-                data: listAvaliacoes
+                data: avaliacao
             }
         }
         catch (error: any) {
@@ -100,7 +91,6 @@ class AvaliacaoService {
             }
         }
     }
-
 }
 
 export default new AvaliacaoService()
