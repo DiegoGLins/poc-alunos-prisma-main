@@ -68,7 +68,7 @@ class AvaliacaoService {
                 },
                 where
             })
-            console.log(avaliacao)
+
             if (!avaliacao.length) {
                 return {
                     ok: true,
