@@ -52,39 +52,4 @@ export class AuthController {
             });
         }
     }
-
-    public async update(req: Request, res: Response) {
-        try {
-            const { id } = req.params;
-            const { nome, idade } = req.body;
-
-            const result = await new AlunoService().update({
-                id,
-                nome,
-                idade,
-            });
-
-            res.status(result.code).send(result);
-        } catch (error: any) {
-            res.status(500).send({
-                ok: false,
-                message: error.toString(),
-            });
-        }
-    }
-
-    public async delete(req: Request, res: Response) {
-        try {
-            const { id } = req.params;
-
-            const result = await new AlunoService().delete(id);
-
-            res.status(result.code).send(result);
-        } catch (error: any) {
-            res.status(500).send({
-                ok: false,
-                message: error.toString(),
-            });
-        }
-    }
 }
