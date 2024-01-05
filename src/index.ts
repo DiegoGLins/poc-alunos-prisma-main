@@ -4,6 +4,8 @@ import { alunoRoutes, turmaRoutes } from "./routes";
 import { authRoutes } from "./routes/auth.routes";
 import * as dotenv from "dotenv";
 import { avaliacaoRoutes } from "./routes/avaliacao.routes";
+import swaggerUi from "swagger-ui-express"
+import swaggerDoc from "./docs/swagger.json"
 
 dotenv.config();
 
@@ -15,6 +17,7 @@ app.use("/auth", authRoutes());
 app.use("/alunos", alunoRoutes());
 app.use("/turma", turmaRoutes());
 app.use("/avaliacao", avaliacaoRoutes())
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 const port = process.env.PORT;
 
