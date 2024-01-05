@@ -74,6 +74,16 @@
         }
       },
       "token": { "type": "string" }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
+  },
+  "security": {
+    "bearer": []
   }
 }
