@@ -1,0 +1,79 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "poc-alunos-prisma",
+    "description": "A api poc-alunos-prisma é usada para cadastrar alunos e avaliações de cada um deles",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3333",
+  "tags": [
+    {
+      "name": "aluno",
+      "description": "Rotas para cadastro e update de alunos"
+    },
+    {
+      "name": "aluno",
+      "description": "Rotas para realizar autenticação"
+    }
+  ],
+  "paths": {
+    "/auth": {
+      "description": "Rotas para realizar autenticação",
+      "post": {
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "aluno": {
+                          "$ref": "#components/schemas/aluno"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "aluno": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "email": { "type": "string" },
+          "nome": { "type": "string" },
+          "type": { "type": "string" }
+        }
+      },
+      "token": { "type": "string" }
+    }
+  }
+}
