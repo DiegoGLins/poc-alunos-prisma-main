@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import repository from "../database/prisma.connection";
 import avaliacaoService from "../services/avaliacao.service";
-import { AlunoType } from "../types/alunotype";
 
 export class AvaliacaoController {
     public async listAll(req: Request, res: Response) {
