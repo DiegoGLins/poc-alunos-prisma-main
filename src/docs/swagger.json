@@ -5,15 +5,15 @@
     "description": "A api poc-alunos-prisma é usada para cadastrar alunos e avaliações de cada um deles",
     "version": "1.0.0"
   },
-  "host": "localhost:3333",
+  "servers": [
+    {
+      "url": "http://localhost:3333"
+    }
+  ],
   "tags": [
     {
-      "name": "aluno",
+      "name": "alunos",
       "description": "Rotas para cadastro e update de alunos"
-    },
-    {
-      "name": "aluno",
-      "description": "Rotas para realizar autenticação"
     }
   ],
   "paths": {
@@ -21,6 +21,7 @@
       "description": "Rotas para realizar autenticação",
       "post": {
         "tags": ["auth"],
+        "summary": "Loga o usuário no sistema",
         "requestBody": {
           "content": {
             "application/json": {
@@ -49,7 +50,7 @@
                       "type": "object",
                       "properties": {
                         "aluno": {
-                          "$ref": "#components/schemas/aluno"
+                          "$ref": "#/components/schemas/aluno"
                         }
                       }
                     }
@@ -57,7 +58,129 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Usuario não encontrado"
           }
+        }
+      }
+    },
+    "/alunos": {
+      "get": {
+        "tags": ["alunos"],
+        "description": "Lista todos os alunos",
+        "responses": {
+          "200": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "ok": "boolean",
+                  "$ref": "#/components/schemas/aluno"
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Erro do servidor"
+        }
+      },
+      "post": {
+        "tags": ["alunos"],
+        "description": "Cria um novo aluno",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "idade": {
+                    "type": "number"
+                  },
+                  "password": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/aluno"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Campos não fornecidos"
+          },
+          "403": {
+            "description": "Tipo de aluno incorreto"
+          },
+          "500": {
+            "description": "Erro do servidor"
+          }
+        }
+      }
+    },
+    "/alunos/{id}": {
+      "put": {
+        "tags": ["alunos"],
+        "summary": "Edita um aluno",
+        "description": "Isso só pode ser feito pelo usuário logado. Edita o nome e a idade do aluno",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "O id do aluno a ser editado",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "email": { "type": "string" },
+                  "idade": { "type": "number" }
+                },
+                "required": true
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Aluno editado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/aluno"
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
         }
       }
     }
@@ -84,6 +207,6 @@
     }
   },
   "security": {
-    "bearer": []
+    "bearerAuth": []
   }
 }
