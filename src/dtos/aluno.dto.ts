@@ -12,5 +12,6 @@ export interface CreateAlunoDTO {
 export interface UpdateAlunoDTO {
     id: string;
     nome?: string;
+    email?: string;
     idade?: number;
 }
