@@ -51,12 +51,13 @@ export class AlunoController {
     public async update(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const { nome, idade } = req.body;
+            const { nome, idade, email } = req.body;
 
             const result = await new AlunoService().update({
                 id,
                 nome,
                 idade,
+                email
             });
 
             res.status(result.code).send(result);
