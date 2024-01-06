@@ -81,6 +81,7 @@ export class AlunoService {
 
         aluno.nome = params.nome ?? aluno.nome;
         aluno.idade = params.idade ?? aluno.idade;
+        aluno.email = params.email ?? aluno.email
 
         await repository.aluno.update({
             where: {
@@ -89,6 +90,7 @@ export class AlunoService {
             data: {
                 nome: aluno.nome,
                 idade: aluno.idade,
+                email: aluno.email
             },
         });
 
