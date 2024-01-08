@@ -175,12 +175,7 @@
                 }
               }
             }
-          },
-          "security": [
-            {
-              "bearerAuth": []
-            }
-          ]
+          }
         }
       }
     }
@@ -206,7 +201,9 @@
       }
     }
   },
-  "security": {
-    "bearerAuth": []
-  }
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
 }
