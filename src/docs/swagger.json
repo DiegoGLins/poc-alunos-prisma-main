@@ -136,6 +136,11 @@
     },
     "/alunos/{id}": {
       "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": ["alunos"],
         "summary": "Edita um aluno",
         "description": "Isso só pode ser feito pelo usuário logado. Edita o nome e a idade do aluno",
@@ -144,10 +149,7 @@
             "name": "id",
             "in": "path",
             "description": "O id do aluno a ser editado",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "required": true
           }
         ],
         "requestBody": {
@@ -201,9 +203,7 @@
       }
     }
   },
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ]
+  "security": {
+    "bearerAuth": []
+  }
 }
