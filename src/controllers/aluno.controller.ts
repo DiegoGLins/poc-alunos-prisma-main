@@ -60,10 +60,10 @@ export class AlunoController {
                 email
             });
 
-            res.status(result.code).send(result);
+            res.status(result.code).send(result.data);
         } catch (error: any) {
             res.status(500).send({
-                ok: false,
+                code: 500,
                 message: error.toString(),
             });
         }
