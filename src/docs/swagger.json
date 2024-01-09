@@ -167,7 +167,7 @@
             }
           }
         },
-        "response": {
+        "responses": {
           "200": {
             "description": "Aluno editado com sucesso",
             "content": {
@@ -177,6 +177,12 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
       }
