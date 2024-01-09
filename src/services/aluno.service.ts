@@ -97,7 +97,9 @@ export class AlunoService {
         return {
             code: 200,
             message: "Aluno sucessfully updated",
-            data: this.mapToModel(aluno).toJson(),
+            data: {
+                aluno: this.mapToModel(aluno).toJson()
+            },
         };
     }
 
