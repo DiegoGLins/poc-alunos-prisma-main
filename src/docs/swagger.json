@@ -143,7 +143,7 @@
         ],
         "tags": ["alunos"],
         "summary": "Edita um aluno",
-        "description": "Isso só pode ser feito pelo usuário logado. Edita o nome e a idade do aluno",
+        "description": "Isso só pode ser feito pelo usuário logado. Edita o nome, email e idade do aluno",
         "parameters": [
           {
             "name": "id",
